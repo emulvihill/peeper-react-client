@@ -10,32 +10,26 @@ interface ComparisonOutputProps {
 
 const ComparisonOutput: React.FC<ComparisonOutputProps> = (props: ComparisonOutputProps) => {
 
-    const {
-        data: comparisonData,
-        error: comparisonError,
-        loading: comparisonLoading
-    } = useQuery(COMPARE_VIDEO_SNAPS, {variables: {id1: props.snaps?.["0"]?.id, id2: props.snaps?.["1"]?.id}});
+    const {data, error, loading} = useQuery(COMPARE_VIDEO_SNAPS, {
+        variables: {
+            id1: props.snaps?.["0"]?.id,
+            id2: props.snaps?.["1"]?.id
+        }
+    });
 
     return (
         <div className={classes.container}>
-            {comparisonLoading && (
-                <div className={classes.loading}>RUNNING COMPARISON...</div>
-            )}
-            {comparisonError && (
-                <div className={classes.error}>
-                    ERROR: {comparisonError?.cause?.message}
-                </div>
-            )}
-            {comparisonData && (
-                <div className={classes.output}>
-                    <textarea
-                        className={classes.textArea}
-                        value={comparisonData?.compareVideoSnapsById}
-                        readOnly
-                        rows={5}
-                    />
-                </div>
-            )}
+
+            <div className={classes.output} >
+                {loading && "RUNNING COMPARISON..."}
+                {error && `Error! ${error}`}
+                {data && <textarea
+                    className={classes.textArea}
+                    value={data?.compareVideoSnapsById}
+                    readOnly
+                    rows={5}
+                />}
+            </div>
         </div>
     );
 };
