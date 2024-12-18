@@ -1,15 +1,18 @@
-import {useState, useRef} from 'react';
-import {useLazyQuery, useMutation} from '@apollo/client';
-import SnapComparisonView from './components/SnapComparisonView/SnapComparisonView';
+import {useState, useRef, useMemo} from 'react';
+import {useMutation} from '@apollo/client';
+import SnapListView from './components/SnapListView/SnapListView';
 import {CREATE_VIDEO_SNAP} from './services/VideoSnapService';
 import './App.css';
-import {VideoSnap} from "./models/graphql-models.ts";
-import {COMPARE_VIDEO_SNAPS} from "./services/ComparisonService.ts";
+import {SnapPair, VideoSnap} from "./models/graphql-models.ts";
+import ComparisonOutput from "./components/ComparisonOutput/ComparisonOutput.tsx";
+
 
 const App = () => {
     const [storage, setStorage] = useState<VideoSnap[]>([]);
     const [capturing, setCapturing] = useState(false);
-    const [snapPair, setSnapPair] = useState<[(VideoSnap | undefined)?, (VideoSnap | undefined)?]>([undefined, undefined]);
+    const [snapPair, setSnapPair] = useState<SnapPair>([undefined, undefined]);
+    const canCompare = useMemo(() => !!(snapPair[0] && snapPair[1]), [snapPair]);
+    const [comparing, setComparing] = useState(false);
     const [hideVideo, setHideVideo] = useState(false);
 
     const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -18,7 +21,6 @@ const App = () => {
     const intervalInputRef = useRef<HTMLInputElement | null>(null);
 
     const [createVideoSnap] = useMutation(CREATE_VIDEO_SNAP);
-    const [compareVideoSnaps, {data: comparisonData, error: comparisonError, loading: comparisonLoading}] = useLazyQuery(COMPARE_VIDEO_SNAPS);
 
     const getTimeoutInterval = () => {
         const intervalValue = parseInt(intervalInputRef.current?.value || '1');
@@ -84,18 +86,6 @@ const App = () => {
         }
     };
 
-    const compareSelected = () => {
-
-        if (snapPair[0] && snapPair[1]) {
-            compareVideoSnaps({
-                variables: {
-                    id1: snapPair[0].id,
-                    id2: snapPair[1].id
-                }
-            });
-        }
-    }
-
     return (
         <div>
             <h1>Peeper</h1>
@@ -132,18 +122,21 @@ const App = () => {
                 />
             </div>
             <div>
-                <button id="compare" disabled={!(snapPair[0] && snapPair[1])} onClick={compareSelected}>Compare Images
+                <button id="compare" disabled={!canCompare}
+                        onClick={() => setComparing(true)}>Compare Images
                 </button>
             </div>
 
-
-            <SnapComparisonView
+            <SnapListView
                 snaps={storage}
                 onEdit={setSnapPair}
             />
-            <div hidden={!comparisonLoading}>RUNNING COMPARISON...</div>
-            <div hidden={!comparisonError?.cause}>ERROR: {comparisonError?.cause?.message}</div>
-            <div>{comparisonData?.compareVideoSnapsById}</div>
+
+            {canCompare && comparing && <div>
+                <ComparisonOutput
+                    snaps={snapPair}
+                />
+            </div>}
         </div>
     )
         ;

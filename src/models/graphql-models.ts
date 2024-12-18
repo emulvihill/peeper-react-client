@@ -20,3 +20,5 @@ export interface FeedInput {
   userId: number;
   name: string;
 }
+
+export type SnapPair = [(VideoSnap | undefined)?, (VideoSnap | undefined)?];

@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import VideoSnapTile from '../VideoSnapTile/VideoSnapTile';
-import classes from './SnapComparisonView.module.css';
+import classes from './SnapListView.module.css';
 import {VideoSnap} from "../../models/graphql-models.ts";
 
-const SnapComparisonView: React.FC<{ snaps: VideoSnap[]; onEdit: (snaps: [VideoSnap?, VideoSnap?]) => void }> = ({ snaps, onEdit }) => {
+const SnapListView: React.FC<{ snaps: VideoSnap[]; onEdit: (snaps: [VideoSnap?, VideoSnap?]) => void }> = ({
+                                                                                                               snaps,
+                                                                                                               onEdit
+                                                                                                           }) => {
     const [beforeSnap, setBeforeSnap] = useState<VideoSnap | undefined>();
     const [afterSnap, setAfterSnap] = useState<VideoSnap | undefined>();
     const [lastSelectedSnap, setLastSelectedSnap] = useState<VideoSnap | undefined>();
@@ -42,19 +45,21 @@ const SnapComparisonView: React.FC<{ snaps: VideoSnap[]; onEdit: (snaps: [VideoS
     };
 
     return (
-        <div className={`${classes.wrapper}`}>
-            {snaps.map(snap => (
-                <VideoSnapTile
-                    key={snap.id}
-                    snap={snap}
-                    selectedAsBefore={beforeSnap === snap}
-                    selectedAsAfter={afterSnap === snap}
-                    lastSelected={lastSelectedSnap === snap}
-                    onSelected={handleSnapSelected}
-                />
-            ))}
+        <div className={classes.container}>
+            <div className={`${classes.wrapper}`}>
+                {snaps.map(snap => (
+                    <VideoSnapTile
+                        key={snap.id}
+                        snap={snap}
+                        selectedAsBefore={beforeSnap === snap}
+                        selectedAsAfter={afterSnap === snap}
+                        lastSelected={lastSelectedSnap === snap}
+                        onSelected={handleSnapSelected}
+                    />
+                ))}
+            </div>
         </div>
     );
 };
 
-export default SnapComparisonView;
+export default SnapListView;

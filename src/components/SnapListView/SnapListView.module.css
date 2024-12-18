@@ -1,0 +1,12 @@
+.wrapper {
+    width: 600px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
