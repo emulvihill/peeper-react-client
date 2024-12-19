@@ -1,16 +1,26 @@
-import React from 'react';
+import {FC} from "react";
 import classes from './ComparisonOutput.module.css';
 import {useQuery} from "@apollo/client";
 import {COMPARE_VIDEO_SNAPS} from "../../services/ComparisonService.ts";
 import {SnapPair} from "../../models/graphql-models.ts";
+import {Loading} from "../Loading/Loading.tsx";
 
 interface ComparisonOutputProps {
     snaps?: SnapPair
 }
 
-const ComparisonOutput: React.FC<ComparisonOutputProps> = (props: ComparisonOutputProps) => {
+interface Data {
+    compareVideoSnapsById: string
+}
 
-    const {data, error, loading} = useQuery(COMPARE_VIDEO_SNAPS, {
+interface Variables {
+    id1?: string;
+    id2?: string;
+}
+
+export const ComparisonOutput: FC<ComparisonOutputProps> = (props: ComparisonOutputProps) => {
+
+    const {data, loading, error} = useQuery<Data, Variables>(COMPARE_VIDEO_SNAPS, {
         variables: {
             id1: props.snaps?.["0"]?.id,
             id2: props.snaps?.["1"]?.id
@@ -18,19 +28,20 @@ const ComparisonOutput: React.FC<ComparisonOutputProps> = (props: ComparisonOutp
     });
 
     return (
-        <div className={classes.container}>
-
-            <div className={classes.output} >
-                {loading && "RUNNING COMPARISON..."}
-                {error && `Error! ${error}`}
-                {data && <textarea
-                    className={classes.textArea}
-                    value={data?.compareVideoSnapsById}
-                    readOnly
-                    rows={5}
-                />}
+        loading ?
+            <Loading />
+            :
+            <div className={classes.container}>
+                <div className={classes.output}>
+                    {error && `Error! ${error}`}
+                    {<textarea
+                        className={classes.textArea}
+                        value={data?.compareVideoSnapsById}
+                        readOnly
+                        rows={5}
+                    />}
+                </div>
             </div>
-        </div>
     );
 };
 

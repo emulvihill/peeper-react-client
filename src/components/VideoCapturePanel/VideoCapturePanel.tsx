@@ -1,7 +1,8 @@
-import {VideoSnap} from "../models/graphql-models.ts";
+import {VideoSnap} from "../../models/graphql-models.ts";
 import {useRef, useState} from "react";
 import {useMutation} from "@apollo/client";
-import {CREATE_VIDEO_SNAP} from "../services/VideoSnapService.ts";
+import {CREATE_VIDEO_SNAP} from "../../services/VideoSnapService.ts";
+import classes from "./VideoCapturePanel.module.css";
 
 interface VideoCapturePanelProps {
     onSnapCapture: (snap: VideoSnap) => void
@@ -86,7 +87,7 @@ export const VideoCapturePanel = ({onSnapCapture}: VideoCapturePanelProps) => {
 
     return (
         <>
-            <div>
+            <div className={classes.wrapper}>
                 <button onClick={startCapture} disabled={capturing}>Start</button>
                 <button onClick={stopCapture} disabled={!capturing}>Stop</button>
                 <input

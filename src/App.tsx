@@ -3,7 +3,7 @@ import SnapListView from './components/SnapListView/SnapListView';
 import './App.css';
 import {SnapPair, VideoSnap} from "./models/graphql-models.ts";
 import ComparisonOutput from "./components/ComparisonOutput/ComparisonOutput.tsx";
-import {VideoCapturePanel} from "./components/VideoCapturePanel.tsx";
+import {VideoCapturePanel} from "./components/VideoCapturePanel/VideoCapturePanel.tsx";
 
 const App = () => {
 
