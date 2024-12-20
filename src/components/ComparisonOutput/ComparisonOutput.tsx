@@ -1,9 +1,9 @@
 import {FC} from "react";
-import classes from './ComparisonOutput.module.css';
 import {useQuery} from "@apollo/client";
 import {COMPARE_VIDEO_SNAPS} from "../../services/ComparisonService.ts";
 import {SnapPair} from "../../models/graphql-models.ts";
 import {Loading} from "../Loading/Loading.tsx";
+import {ScrollArea} from "@mantine/core";
 
 interface ComparisonOutputProps {
     snaps?: SnapPair
@@ -29,19 +29,11 @@ export const ComparisonOutput: FC<ComparisonOutputProps> = (props: ComparisonOut
 
     return (
         loading ?
-            <Loading />
+            <Loading/>
             :
-            <div className={classes.container}>
-                <div className={classes.output}>
-                    {error && `Error! ${error}`}
-                    {<textarea
-                        className={classes.textArea}
-                        value={data?.compareVideoSnapsById}
-                        readOnly
-                        rows={5}
-                    />}
-                </div>
-            </div>
+            <ScrollArea h={250}>
+                {error ? `Error! ${error}` : data?.compareVideoSnapsById}
+            </ScrollArea>
     );
 };
 

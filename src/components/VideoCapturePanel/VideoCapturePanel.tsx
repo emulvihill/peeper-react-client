@@ -2,7 +2,7 @@ import {VideoSnap} from "../../models/graphql-models.ts";
 import {useRef, useState} from "react";
 import {useMutation} from "@apollo/client";
 import {CREATE_VIDEO_SNAP} from "../../services/VideoSnapService.ts";
-import classes from "./VideoCapturePanel.module.css";
+import {Button, Checkbox, NumberInput, Stack, Group, Box} from "@mantine/core";
 
 interface VideoCapturePanelProps {
     onSnapCapture: (snap: VideoSnap) => void
@@ -14,15 +14,14 @@ export const VideoCapturePanel = ({onSnapCapture}: VideoCapturePanelProps) => {
 
     const [hideVideo, setHideVideo] = useState(false);
     const [capturing, setCapturing] = useState(false);
+    const [interval, setInterval] = useState(10);
 
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const streamRef = useRef<MediaStream | null>(null);
     const captureIntervalRef = useRef<number | undefined>(undefined);
-    const intervalInputRef = useRef<HTMLInputElement | null>(null);
 
     const getTimeoutInterval = () => {
-        const intervalValue = parseInt(intervalInputRef.current?.value || '5');
-        return (intervalValue >= 1 ? intervalValue : 1) * 1000;
+        return (interval >= 1 ? interval : 1) * 1000;
     };
 
     const startCapture = async () => {
@@ -47,7 +46,7 @@ export const VideoCapturePanel = ({onSnapCapture}: VideoCapturePanelProps) => {
 
     const createSnapshot = async () => {
         const canvas = new OffscreenCanvas(1, 1);
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext("2d");
 
         if (!ctx || !videoRef.current) return;
 
@@ -86,36 +85,55 @@ export const VideoCapturePanel = ({onSnapCapture}: VideoCapturePanelProps) => {
     };
 
     return (
-        <>
-            <div className={classes.wrapper}>
-                <button onClick={startCapture} disabled={capturing}>Start</button>
-                <button onClick={stopCapture} disabled={!capturing}>Stop</button>
-                <input
-                    type="checkbox"
+        <Stack align="center">
+            <Group>
+                <Button
+                    onClick={startCapture}
+                    disabled={capturing}
+                    color="green"
+                    variant="filled"
+                >
+                    Start
+                </Button>
+                <Button
+                    onClick={stopCapture}
+                    disabled={!capturing}
+                    color="red"
+                    variant="filled"
+                >
+                    Stop
+                </Button>
+                <Checkbox
+                    label="Hide Video"
                     checked={hideVideo}
-                    onChange={e => setHideVideo(e.target.checked)}
-                    id="hideVid"
+                    onChange={(event) => setHideVideo(event.currentTarget.checked)}
                 />
-                <label htmlFor="hideVid">Hide Video</label>
-            </div>
-            <div>
-                <label htmlFor="interval">Interval: </label>
-                <input
-                    style={{width: '50px'}}
-                    type="number"
-                    ref={intervalInputRef}
-                    defaultValue={1}
-                    id="interval"
+            </Group>
+
+            <Group>
+                <NumberInput
+                    label="Interval (seconds)"
+                    description="Time between captures"
+                    value={interval}
+                    onChange={val => setInterval(Number(val) || 1)}
+                    min={1}
+                    max={60}
+                    stepHoldDelay={500}
+                    stepHoldInterval={100}
                 />
-            </div>
-            <div>
+            </Group>
+
+            <Box display={hideVideo ? "none" : "block"}>
                 <video
                     ref={videoRef}
                     autoPlay
-                    hidden={hideVideo}
-                    style={{width: '100%', maxWidth: '640px'}}
+                    style={{
+                        width: "100%",
+                        height: "auto",
+                        display: "block",
+                    }}
                 />
-            </div>
-        </>
+            </Box>
+        </Stack>
     );
 };

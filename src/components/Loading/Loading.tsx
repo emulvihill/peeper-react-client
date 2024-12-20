@@ -2,6 +2,6 @@ import {ClipLoader} from "react-spinners";
 
 export function Loading() {
     return (
-        <ClipLoader />
+        <ClipLoader color="var(--mantine-color-blue-9)"/>
     );
 }

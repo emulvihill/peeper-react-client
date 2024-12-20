@@ -1,20 +1,14 @@
-.wrapper {
-    display: inline-block;
-    margin: 5px;
-    width: 128px;
-}
-
 .image {
     border-style: solid;
     border-width: 2px;
 }
 
 .before {
-    border-color: red;
+    border-color: var(--mantine-color-red-9);
 }
 
 .after {
-    border-color: blue;
+    border-color: var(--mantine-color-blue-9);
 }
 
 .last {

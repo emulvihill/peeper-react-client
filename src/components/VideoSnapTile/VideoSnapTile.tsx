@@ -1,5 +1,6 @@
 import classes from './VideoSnapTile.module.css';
 import {VideoSnap} from "../../models/graphql-models.ts";
+import {Image} from "@mantine/core";
 
 interface VideoSnapTileProps {
     snap: VideoSnap,
@@ -15,16 +16,12 @@ const VideoSnapTile = (props: VideoSnapTileProps) => {
     };
 
     return (
-        <div
-            className={`${classes.wrapper}`}
-            onClick={handleClick}
-        >
-            <img className={`${classes.image} 
-            ${props.selectedAsBefore ? classes.before : ''} 
-            ${props.selectedAsAfter ? classes.after : ''}
-            ${props.lastSelected ? classes.last : ''}`}
-            src={props.snap.data} alt="snap"/>
-        </div>
+        <Image onClick={handleClick}
+               className={`${classes.image} 
+            ${props.selectedAsBefore && classes.before} 
+            ${props.selectedAsAfter && classes.after}
+            ${props.lastSelected && classes.last}`}
+               src={props.snap.data} alt="snap"/>
     );
 };
 

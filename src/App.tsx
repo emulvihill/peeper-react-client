@@ -1,9 +1,11 @@
 import {useState, useMemo} from 'react';
 import SnapListView from './components/SnapListView/SnapListView';
-import './App.css';
+import classes from './App.module.css';
 import {SnapPair, VideoSnap} from "./models/graphql-models.ts";
 import ComparisonOutput from "./components/ComparisonOutput/ComparisonOutput.tsx";
 import {VideoCapturePanel} from "./components/VideoCapturePanel/VideoCapturePanel.tsx";
+
+import {Container, Button, Title, Group, Stack} from '@mantine/core';
 
 const App = () => {
 
@@ -20,32 +22,45 @@ const App = () => {
         }
     }
 
-    const handleSnapCaptured = (snap:VideoSnap) => {
+    const handleSnapCaptured = (snap: VideoSnap) => {
         setStorage(prev => [...prev, snap]);
     }
 
     return (
-        <div>
-            <h1>Peeper</h1>
+        <div className={classes.wrapper}>
+            <Container fluid py="xl">
+                <Stack align="center">
+                    <Title order={1}>
+                        Peeper
+                    </Title>
 
-            <VideoCapturePanel onSnapCapture={handleSnapCaptured}></VideoCapturePanel>
+                    <VideoCapturePanel onSnapCapture={handleSnapCaptured}/>
 
-            <div>
-                <button id="compare" hidden={storage.length < 2} disabled={!canCompare}
-                        onClick={compareSelected}>Compare Images
-                </button>
-            </div>
+                    <Group justify="center">
+                        {storage.length >= 2 && (
+                            <Button
+                                color="blue"
+                                disabled={!canCompare}
+                                onClick={compareSelected}
+                                size="lg"
+                            >
+                                Compare Images
+                            </Button>
+                        )}
+                    </Group>
 
-            <SnapListView
-                snaps={storage}
-                onEdit={setSnapPair}
-            />
+                    <SnapListView
+                        snaps={storage}
+                        onEdit={setSnapPair}
+                    />
 
-            {pairDefined(comparisonPair) && <div>
-                <ComparisonOutput
-                    snaps={comparisonPair}
-                />
-            </div>}
+                    {pairDefined(comparisonPair) && (
+                        <ComparisonOutput
+                            snaps={comparisonPair}
+                        />
+                    )}
+                </Stack>
+            </Container>
         </div>
     )
 };
