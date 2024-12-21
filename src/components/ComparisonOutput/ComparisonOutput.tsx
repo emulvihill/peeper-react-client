@@ -1,16 +1,17 @@
 import {FC} from "react";
 import {useQuery} from "@apollo/client";
 import {COMPARE_VIDEO_SNAPS} from "../../services/ComparisonService.ts";
-import {SnapPair} from "../../models/graphql-models.ts";
+import {SnapPair, VideoUpdate} from "../../models/graphql-models.ts";
 import {Loading} from "../Loading/Loading.tsx";
 import {ScrollArea} from "@mantine/core";
+import {ComparisonResult} from "../ComparisonResult/ComparisonResult.tsx";
 
 interface ComparisonOutputProps {
     snaps?: SnapPair
 }
 
 interface Data {
-    compareVideoSnapsById: string
+    compareVideoSnapsById: VideoUpdate
 }
 
 interface Variables {
@@ -32,7 +33,7 @@ export const ComparisonOutput: FC<ComparisonOutputProps> = (props: ComparisonOut
             <Loading/>
             :
             <ScrollArea h={250}>
-                {error ? `Error! ${error}` : data?.compareVideoSnapsById}
+                {error ? `Error! ${error}` : data && <ComparisonResult update={data.compareVideoSnapsById}></ComparisonResult>}
             </ScrollArea>
     );
 };

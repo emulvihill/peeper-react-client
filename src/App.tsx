@@ -1,11 +1,10 @@
 import {useState, useMemo} from 'react';
 import SnapListView from './components/SnapListView/SnapListView';
-import classes from './App.module.css';
 import {SnapPair, VideoSnap} from "./models/graphql-models.ts";
 import ComparisonOutput from "./components/ComparisonOutput/ComparisonOutput.tsx";
 import {VideoCapturePanel} from "./components/VideoCapturePanel/VideoCapturePanel.tsx";
 
-import {Container, Button, Title, Group, Stack} from '@mantine/core';
+import {Container, Button, Title, Group, Stack, AppShell} from '@mantine/core';
 
 const App = () => {
 
@@ -27,7 +26,14 @@ const App = () => {
     }
 
     return (
-        <div className={classes.wrapper}>
+        <AppShell
+            header={{ height: 60 }}
+            navbar={{
+                width: 300,
+                breakpoint: 'sm',
+            }}
+            padding="md"
+        >
             <Container fluid py="xl">
                 <Stack align="center">
                     <Title order={1}>
@@ -61,7 +67,7 @@ const App = () => {
                     )}
                 </Stack>
             </Container>
-        </div>
+        </AppShell>
     )
 };
 
