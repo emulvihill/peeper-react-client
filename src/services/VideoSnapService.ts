@@ -10,6 +10,22 @@ export const CREATE_VIDEO_SNAP = gql`  mutation CreateVideoSnap($input: VideoSna
     }
 }`;
 
+export const CREATE_AND_COMPARE_VIDEO_SNAP = gql`  mutation CreateAndCompareVideoSnap($input: VideoSnapInput!) {
+    createAndCompareVideoSnap(input: $input) {
+        current {
+            id
+            feed {
+                id
+            }
+            data
+        }
+        previous{
+            id
+        }
+        comparison
+    }
+}`;
+
 export const GET_VIDEO_SNAPS = gql`  query GetVideoSnaps {
     videoSnaps {
         id
