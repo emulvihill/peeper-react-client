@@ -5,7 +5,7 @@ export interface VideoSnap {
     data: string;
 }
 
-export interface VideoUpdate {
+export interface SnapComparison {
     current: VideoSnap;
     previous?: VideoSnap;
     comparison: string[];

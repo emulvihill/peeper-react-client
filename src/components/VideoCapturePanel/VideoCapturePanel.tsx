@@ -1,4 +1,4 @@
-import {VideoSnap, VideoUpdate} from "../../models/graphql-models.ts";
+import {VideoSnap} from "../../models/graphql-models.ts";
 import {useRef, useState} from "react";
 import {useMutation} from "@apollo/client";
 import {CREATE_AND_COMPARE_VIDEO_SNAP, CREATE_VIDEO_SNAP} from "../../services/VideoSnapService.ts";
@@ -68,7 +68,7 @@ export const VideoCapturePanel = ({onSnapCapture}: VideoCapturePanelProps) => {
 
         reader.onloadend = async () => {
             if (reader.result) {
-                const {data} = await createAndCompareVideoSnap({
+                const {data} = await createVideoSnap({
                     variables: {
                         input: {
                             feedId: "1",
@@ -76,9 +76,9 @@ export const VideoCapturePanel = ({onSnapCapture}: VideoCapturePanelProps) => {
                         }
                     }
                 });
-                const update = data.createAndCompareVideoSnap as VideoUpdate;
-                console.log("comparison: " + update.comparison)
-                onSnapCapture(update.current);
+                const snap = data.createVideoSnap as VideoSnap;
+                console.log("Created Snap: " + snap)
+                onSnapCapture(snap);
             }
         };
 

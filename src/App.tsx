@@ -60,11 +60,11 @@ const App = () => {
                         onEdit={setSnapPair}
                     />
 
-                    {pairDefined(comparisonPair) && (
+{/*                    {pairDefined(comparisonPair) && (
                         <ComparisonOutput
                             snaps={comparisonPair}
                         />
-                    )}
+                    )}*/}
                 </Stack>
             </Container>
         </AppShell>

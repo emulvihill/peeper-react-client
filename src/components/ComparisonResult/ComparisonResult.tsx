@@ -1,5 +1,5 @@
 import {Card, Group, Text, Stack} from "@mantine/core";
-import {VideoSnap, VideoUpdate} from "../../models/graphql-models.ts";
+import {VideoSnap, SnapComparison} from "../../models/graphql-models.ts";
 import VideoSnapTile from "../VideoSnapTile/VideoSnapTile.tsx";
 
 const Tile = ({snap}: { snap: VideoSnap }) => <VideoSnapTile snap={snap}
@@ -7,7 +7,7 @@ const Tile = ({snap}: { snap: VideoSnap }) => <VideoSnapTile snap={snap}
                                                              lastSelected={false} onSelected={() => {
 }}></VideoSnapTile>
 
-export const ComparisonResult = ({update}: { update: VideoUpdate }) =>
+export const ComparisonResult = ({update}: { update: SnapComparison }) =>
     <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Card.Section>
             <Group>
