@@ -1,10 +1,10 @@
 import {useState, useMemo} from 'react';
 import SnapListView from './components/SnapListView/SnapListView';
 import {SnapPair, VideoSnap} from "./models/graphql-models.ts";
-import ComparisonOutput from "./components/ComparisonOutput/ComparisonOutput.tsx";
 import {VideoCapturePanel} from "./components/VideoCapturePanel/VideoCapturePanel.tsx";
 
 import {Container, Button, Title, Group, Stack, AppShell} from '@mantine/core';
+import ComparisonsForFeed from "./components/ComparisonsForFeed/ComparisonsForFeed.tsx";
 
 const App = () => {
 
@@ -27,7 +27,7 @@ const App = () => {
 
     return (
         <AppShell
-            header={{ height: 60 }}
+            header={{height: 60}}
             navbar={{
                 width: 300,
                 breakpoint: 'sm',
@@ -35,37 +35,34 @@ const App = () => {
             padding="md"
         >
             <Container fluid py="xl">
-                <Stack align="center">
-                    <Title order={1}>
-                        Peeper
-                    </Title>
+                <Group align="start" wrap="nowrap">
+                    <Stack align="center">
+                        <Title order={1}>
+                            Peeper
+                        </Title>
 
-                    <VideoCapturePanel onSnapCapture={handleSnapCaptured}/>
+                        <VideoCapturePanel onSnapCapture={handleSnapCaptured}/>
 
-                    <Group justify="center">
-                        {storage.length >= 2 && (
-                            <Button
-                                color="blue"
-                                disabled={!canCompare}
-                                onClick={compareSelected}
-                                size="lg"
-                            >
-                                Compare Images
-                            </Button>
-                        )}
-                    </Group>
+                        <Group justify="center">
+                            {storage.length >= 2 && (
+                                <Button
+                                    color="blue"
+                                    disabled={!canCompare}
+                                    onClick={compareSelected}
+                                    size="lg"
+                                >
+                                    Compare Images
+                                </Button>
+                            )}
+                        </Group>
 
-                    <SnapListView
-                        snaps={storage}
-                        onEdit={setSnapPair}
-                    />
-
-{/*                    {pairDefined(comparisonPair) && (
-                        <ComparisonOutput
-                            snaps={comparisonPair}
+                        <SnapListView
+                            snaps={storage}
+                            onEdit={setSnapPair}
                         />
-                    )}*/}
-                </Stack>
+                    </Stack>
+                    <ComparisonsForFeed feedId={"1"}></ComparisonsForFeed>
+                </Group>
             </Container>
         </AppShell>
     )

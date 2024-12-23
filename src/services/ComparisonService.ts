@@ -23,3 +23,21 @@ export const COMPARE_VIDEO_SNAPS = gql`
         }
     }
 `;
+
+export const COMPARISONS_FOR_FEED = gql`  query GetComparisonsForFeed($feedId: ID!) {
+    comparisonsForFeed(feedId: $feedId) {
+        id
+        feed {
+            id
+        }
+        current {
+            id
+            data
+        }
+        previous {
+            id
+            data
+        }
+        comparison
+    }
+}`;

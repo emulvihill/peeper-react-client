@@ -23,7 +23,7 @@ export const ComparisonResult = ({update}: { update: SnapComparison }) =>
         </Card.Section>
 
         {update.comparison.map((item) => (
-            <Text size="sm" c="dimmed">
+            <Text size="sm" c="dimmed" maw={500}>
                 {item}
             </Text>
         ))}
