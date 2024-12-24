@@ -22,7 +22,8 @@ export const CREATE_AND_COMPARE_VIDEO_SNAP = gql`  mutation CreateAndCompareVide
         previous{
             id
         }
-        comparison
+        numPersons
+        comparisons
     }
 }`;
 

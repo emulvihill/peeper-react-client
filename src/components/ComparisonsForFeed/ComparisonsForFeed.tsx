@@ -23,7 +23,8 @@ export const ComparisonsForFeed: FC<ComparisonsForFeedProps> = (props: Compariso
     const {data, loading} = useQuery<Data, Variables>(COMPARISONS_FOR_FEED, {
         variables: {
             feedId: props.feedId
-        }
+        },
+        pollInterval: 2500,
     });
 
     return (

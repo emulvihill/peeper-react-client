@@ -8,7 +8,8 @@ export interface VideoSnap {
 export interface SnapComparison {
     current: VideoSnap;
     previous?: VideoSnap;
-    comparison: string[];
+    comparisons: string[];
+    numPersons: number;
 }
 
 export interface VideoSnapInput {

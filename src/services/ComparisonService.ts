@@ -19,7 +19,8 @@ export const COMPARE_VIDEO_SNAPS = gql`
                 date
                 data
             }
-            comparison
+            numPersons
+            comparisons
         }
     }
 `;
@@ -38,6 +39,7 @@ export const COMPARISONS_FOR_FEED = gql`  query GetComparisonsForFeed($feedId: I
             id
             data
         }
-        comparison
+        numPersons
+        comparisons
     }
 }`;

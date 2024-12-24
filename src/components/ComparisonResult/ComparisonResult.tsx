@@ -21,8 +21,8 @@ export const ComparisonResult = ({update}: { update: SnapComparison }) =>
                 </Stack>}
             </Group>
         </Card.Section>
-
-        {update.comparison.map((item) => (
+        <Text size="sm">Number of people: {update.numPersons}</Text>
+        {update.comparisons.map((item) => (
             <Text size="sm" c="dimmed" maw={500}>
                 {item}
             </Text>
