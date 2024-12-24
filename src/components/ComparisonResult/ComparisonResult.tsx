@@ -10,22 +10,20 @@ const Tile = ({snap}: { snap: VideoSnap }) => <VideoSnapTile snap={snap}
 export const ComparisonResult = ({update}: { update: SnapComparison }) =>
     <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Card.Section>
-            <Group>
+            <Group wrap="nowrap">
                 <Stack>
                     <Tile snap={update.current}></Tile>
-                    <Text size="sm">{update.current.date}</Text>
+                    <Text mt="-6px" size="xs">{update.current.created.replace(/[TZ]/g, " ")}</Text>
+                    <Text mt="-12px" size="xs">Number of people: {update.numPersons}</Text>
                 </Stack>
-                {update.previous && <Stack>
-                    <Tile snap={update.previous}></Tile>
-                    <Text size="sm">{update.previous.date}</Text>
-                </Stack>}
+                <Stack>
+                    {update.comparisons.map((item) => (
+                        <Text size="sm" c="dimmed">
+                            {item}
+                        </Text>
+                    ))}
+                </Stack>
             </Group>
         </Card.Section>
-        <Text size="sm">Number of people: {update.numPersons}</Text>
-        {update.comparisons.map((item) => (
-            <Text size="sm" c="dimmed" maw={500}>
-                {item}
-            </Text>
-        ))}
 
     </Card>

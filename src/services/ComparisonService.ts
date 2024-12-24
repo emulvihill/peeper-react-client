@@ -5,18 +5,18 @@ export const COMPARE_VIDEO_SNAPS = gql`
         compareVideoSnapsById(id1: $id1, id2: $id2) {
             current {
                 id
+                created
                 feed {
                     id
                 }
-                date
                 data
             }
             previous {
                 id
+                created
                 feed {
                     id
                 }
-                date
                 data
             }
             numPersons
@@ -33,10 +33,12 @@ export const COMPARISONS_FOR_FEED = gql`  query GetComparisonsForFeed($feedId: I
         }
         current {
             id
+            created
             data
         }
         previous {
             id
+            created
             data
         }
         numPersons

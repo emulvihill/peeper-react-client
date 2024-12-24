@@ -3,6 +3,7 @@ import {gql} from '@apollo/client';
 export const CREATE_VIDEO_SNAP = gql`  mutation CreateVideoSnap($input: VideoSnapInput!) {
     createVideoSnap(input: $input) {
         id
+        created
         feed {
             id
         }
@@ -14,6 +15,7 @@ export const CREATE_AND_COMPARE_VIDEO_SNAP = gql`  mutation CreateAndCompareVide
     createAndCompareVideoSnap(input: $input) {
         current {
             id
+            created
             feed {
                 id
             }
@@ -30,6 +32,7 @@ export const CREATE_AND_COMPARE_VIDEO_SNAP = gql`  mutation CreateAndCompareVide
 export const GET_VIDEO_SNAPS = gql`  query GetVideoSnaps {
     videoSnaps {
         id
+        created
         feed {
             id
         }
@@ -40,6 +43,7 @@ export const GET_VIDEO_SNAPS = gql`  query GetVideoSnaps {
 export const GET_VIDEO_SNAPS_FOR_FEED = gql`  query GetVideoSnaps($feedId: ID!) {
     videoSnapsForFeed(feedId: $feedId) {
         id
+        created
         feed {
             id
         }

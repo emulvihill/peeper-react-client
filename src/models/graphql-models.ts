@@ -1,7 +1,7 @@
 export interface VideoSnap {
     id: string;
     feed: Feed;
-    date: string;
+    created: string;
     data: string;
 }
 

@@ -3,7 +3,7 @@ import SnapListView from './components/SnapListView/SnapListView';
 import {SnapPair, VideoSnap} from "./models/graphql-models.ts";
 import {VideoCapturePanel} from "./components/VideoCapturePanel/VideoCapturePanel.tsx";
 
-import {Container, Button, Title, Group, Stack, AppShell} from '@mantine/core';
+import {Button, Title, Group, Stack, AppShell, ScrollArea, Flex} from '@mantine/core';
 import ComparisonsForFeed from "./components/ComparisonsForFeed/ComparisonsForFeed.tsx";
 
 const App = () => {
@@ -28,19 +28,20 @@ const App = () => {
     return (
         <AppShell
             header={{height: 60}}
-            navbar={{
+/*            navbar={{
                 width: 300,
                 breakpoint: 'sm',
-            }}
+            }}*/
             padding="md"
         >
-            <Container fluid py="xl">
+            <AppShell.Header>
+                <Title order={1}>
+                    Peeper 👁️👁️
+                </Title>
+            </AppShell.Header>
+            <AppShell.Main>
                 <Group align="start" wrap="nowrap">
                     <Stack align="center">
-                        <Title order={1}>
-                            Peeper
-                        </Title>
-
                         <VideoCapturePanel onSnapCapture={handleSnapCaptured}/>
 
                         <Group justify="center">
@@ -61,9 +62,12 @@ const App = () => {
                             onEdit={setSnapPair}
                         />
                     </Stack>
-                    <ComparisonsForFeed feedId={"1"}></ComparisonsForFeed>
+                    <ScrollArea h="calc(100vh - 100px)">
+                        <ComparisonsForFeed feedId={"1"}></ComparisonsForFeed>
+                    </ScrollArea>
                 </Group>
-            </Container>
+            </AppShell.Main>
+            {/*<AppShell.Footer></AppShell.Footer>*/}
         </AppShell>
     )
 };
