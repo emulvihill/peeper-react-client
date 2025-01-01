@@ -3,7 +3,7 @@ import SnapListView from './components/SnapListView/SnapListView';
 import {SnapPair, VideoSnap} from "./models/graphql-models.ts";
 import {VideoCapturePanel} from "./components/VideoCapturePanel/VideoCapturePanel.tsx";
 
-import {Button, Title, Group, Stack, AppShell, ScrollArea, Flex} from '@mantine/core';
+import {Button, Title, Group, Stack, AppShell, ScrollArea} from '@mantine/core';
 import ComparisonsForFeed from "./components/ComparisonsForFeed/ComparisonsForFeed.tsx";
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
 
     const [storage, setStorage] = useState<VideoSnap[]>([]);
     const [snapPair, setSnapPair] = useState<SnapPair>([undefined, undefined]);
-    const [comparisonPair, setComparisonPair] = useState<SnapPair>([undefined, undefined]);
+    const [, setComparisonPair] = useState<SnapPair>([undefined, undefined]);
     const canCompare = useMemo(() => pairDefined(snapPair), [snapPair]);
 
     const compareSelected = () => {
