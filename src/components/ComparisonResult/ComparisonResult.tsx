@@ -1,5 +1,5 @@
-import {Card, Group, Text, Stack} from "@mantine/core";
-import {VideoSnap, SnapComparison} from "../../models/graphql-models.ts";
+import {Card, Group, Stack, Text} from "@mantine/core";
+import {SnapComparison, VideoSnap} from "../../models/graphql-models.ts";
 import VideoSnapTile from "../VideoSnapTile/VideoSnapTile.tsx";
 
 const Tile = ({snap}: { snap: VideoSnap }) => <VideoSnapTile snap={snap}
@@ -8,15 +8,17 @@ const Tile = ({snap}: { snap: VideoSnap }) => <VideoSnapTile snap={snap}
 }}></VideoSnapTile>
 
 export const ComparisonResult = ({update}: { update: SnapComparison }) =>
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
+    <Card shadow="sm" padding="lg" m="md" radius="md" withBorder>
         <Card.Section>
             <Group wrap="nowrap">
-                <Stack>
-                    <Tile snap={update.current}></Tile>
+                <Stack w="300">
+                    <Group wrap="nowrap">
+                        <Tile snap={update.previous!}></Tile>
+                        <Tile snap={update.current}></Tile></Group>
                     <Text mt="-6px" size="xs">{update.current.created.replace(/[TZ]/g, " ")}</Text>
                     <Text mt="-12px" size="xs">Number of people: {update.numPersons}</Text>
                 </Stack>
-                <Stack>
+                <Stack w={"430px"}>
                     {update.comparisons.map((item) => (
                         <Text size="sm" c="dimmed">
                             {item}
