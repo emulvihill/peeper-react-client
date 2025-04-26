@@ -35,7 +35,6 @@ export const ComparisonsForFeed: FC<ComparisonsForFeedProps> = (props: Compariso
         [data]);
 
     useEffect(() => {
-        console.log("Scrollllling!")
         viewport.current?.scrollTo({ top: viewport.current!.scrollHeight });
         }, [sortedData]);
 
