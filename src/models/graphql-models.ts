@@ -28,4 +28,29 @@ export interface FeedInput {
     name: string;
 }
 
+export interface CompareProfile {
+    id: string;
+    created: string;
+    modified: string;
+    name: string;
+}
+
+export interface PointOfInterest {
+    id: string;
+    created: string;
+    modified: string;
+    request: string;
+    detected: boolean;
+    compareProfile: CompareProfile;
+    actions: POIAction[];
+}
+
+export interface POIAction {
+    id: string;
+    created: string;
+    modified: string;
+    action: string;
+    compareProfile: CompareProfile;
+}
+
 export type SnapPair = [(VideoSnap | undefined)?, (VideoSnap | undefined)?];
