@@ -6,6 +6,7 @@ export interface VideoSnap {
 }
 
 export interface SnapComparison {
+    id: number;
     current: VideoSnap;
     previous?: VideoSnap;
     comparisons: string[];

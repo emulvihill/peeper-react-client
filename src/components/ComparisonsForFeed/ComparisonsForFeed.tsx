@@ -43,7 +43,7 @@ export const ComparisonsForFeed: FC<ComparisonsForFeedProps> = (props: Compariso
             <Loading/>
             :
             <ScrollArea maw={"800"} viewportRef={viewport}>
-                {sortedData && sortedData.map(f => <ComparisonResult update={f}></ComparisonResult>)}
+                {sortedData && sortedData.map(f => <ComparisonResult key={f.id} update={f}></ComparisonResult>)}
             </ScrollArea>
     );
 };
